@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Counter } from "./components/Counter";
 import { Header } from "./components/Header";
 
