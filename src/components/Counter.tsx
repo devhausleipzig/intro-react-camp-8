@@ -7,8 +7,10 @@ export function Counter() {
     <div className="flex flex-col items-center">
       <span className="text-2xl font-bold">{count}</span>
       <div className="flex gap-3">
-        <Button onClick={() => setCount(count - 1)} label="Decrement" />
-        <Button onClick={() => setCount(count + 1)} label="Increment" />
+        <Button onClick={() => setCount(count - 1)}>
+          <span className="text-red-500">Decrement</span>
+        </Button>
+        <Button onClick={() => setCount(count + 1)}>Increment</Button>
       </div>
     </div>
   );

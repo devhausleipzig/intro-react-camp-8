@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Counter } from "./components/Counter";
+import { Form } from "./components/Form";
 import { Header } from "./components/Header";
 
 export default function App() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       <Header
         title="Page 1"
         navElements={["Home", "About", "Carrers", "Blog"]}
@@ -15,6 +15,7 @@ export default function App() {
         <p>Second paragraph</p>
       </div>
       <Counter />
+      <Form />
     </div>
   );
 }
