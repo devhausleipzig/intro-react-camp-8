@@ -1,6 +1,9 @@
+import { Counter } from "./components/Counter";
+import { Header } from "./components/Header";
+
 export default function App() {
   return (
-    <div>
+    <div className="space-y-4">
       <Header
         title="Page 1"
         navElements={["Home", "About", "Carrers", "Blog"]}
@@ -10,25 +13,8 @@ export default function App() {
         <p>First paragraph</p>
         <p>Second paragraph</p>
       </div>
+      <Counter />
     </div>
-  );
-}
-
-type HeaderProps = {
-  title: string;
-  navElements: string[];
-};
-
-function Header({ title, navElements }: HeaderProps) {
-  return (
-    <header className="bg-red-500 flex justify-between items-center p-2">
-      <span>{title}</span>
-      <nav className="flex">
-        {navElements.map((el) => (
-          <li className="text-white">{el}</li>
-        ))}
-      </nav>
-    </header>
   );
 }
 
