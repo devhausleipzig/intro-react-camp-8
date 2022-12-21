@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "./Button";
+import { Input } from "./Input";
 
 const initialState = {
   email: "",
@@ -31,13 +32,6 @@ export function Form() {
       setError("Passwords dont match");
       return;
     }
-  }
-
-  function updateField(field: keyof typeof formState, value: string) {
-    setFormState((previousState) => ({
-      ...previousState,
-      [field]: value,
-    }));
   }
 
   return (
@@ -77,38 +71,5 @@ export function Form() {
       </form>
       <pre className="bg-gray-200">{JSON.stringify(formState, null, 2)}</pre>
     </>
-  );
-}
-
-type NativeInputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
-
-type InputProps<T> = {
-  state: T;
-  updater: Dispatch<SetStateAction<T>>;
-  name: keyof T;
-} & NativeInputProps;
-
-function Input<T>({
-  state,
-  updater,
-  name,
-  type = "text",
-  ...props
-}: InputProps<T>) {
-  return (
-    <input
-      type={type}
-      value={state[name] as string}
-      onChange={(event) =>
-        updater((prev) => ({
-          ...prev,
-          [name]: event.target.value,
-        }))
-      }
-      {...props}
-    />
   );
 }
