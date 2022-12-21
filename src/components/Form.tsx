@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, {
+  DetailedHTMLProps,
+  Dispatch,
+  SetStateAction,
+  useState,
+} from "react";
 import { Button } from "./Button";
 
 const initialState = {
@@ -33,53 +38,40 @@ export function Form() {
     }
   }
 
+  function updateField(field: keyof typeof formState, value: string) {
+    setFormState((previousState) => ({
+      ...previousState,
+      [field]: value,
+    }));
+  }
+
   return (
     <>
       <h2 className="text-2xl font-bold text-center">Form</h2>
       <form onSubmit={onSubmit} className="flex flex-col gap-4 items-center">
-        <input
-          type="text"
+        <Input
+          state={formState}
+          updater={setFormState}
+          name="email"
           placeholder="E-Mail Address"
-          value={formState.email}
-          onChange={(event) =>
-            setFormState((previousState) => ({
-              ...previousState,
-              email: event.target.value,
-            }))
-          }
         />
-        <input
-          type="text"
+        <Input
+          state={formState}
+          updater={setFormState}
+          name="name"
           placeholder="Name"
-          value={formState.name}
-          onChange={(event) =>
-            setFormState((previousState) => ({
-              ...previousState,
-              name: event.target.value,
-            }))
-          }
         />
-        <input
-          type="password"
+        <Input
+          state={formState}
+          updater={setFormState}
+          name="password"
           placeholder="************"
-          value={formState.password}
-          onChange={(event) =>
-            setFormState((previousState) => ({
-              ...previousState,
-              password: event.target.value,
-            }))
-          }
         />
-        <input
-          type="password"
+        <Input
+          state={formState}
+          updater={setFormState}
+          name="confirmPassword"
           placeholder="************"
-          value={formState.confirmPassword}
-          onChange={(event) =>
-            setFormState((previousState) => ({
-              ...previousState,
-              confirmPassword: event.target.value,
-            }))
-          }
         />
         {error && <span className="text-red-600">{error}</span>}
         {error ? <span className="text-red-600">{error}</span> : null}
@@ -90,5 +82,38 @@ export function Form() {
       </form>
       <pre className="bg-gray-200">{JSON.stringify(formState, null, 2)}</pre>
     </>
+  );
+}
+
+type NativeInputProps = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
+
+type InputProps<T> = {
+  state: T;
+  updater: Dispatch<SetStateAction<T>>;
+  name: keyof T;
+} & NativeInputProps;
+
+function Input<T>({
+  state,
+  updater,
+  name,
+  type = "text",
+  ...props
+}: InputProps<T>) {
+  return (
+    <input
+      type={type}
+      value={state[name] as string}
+      onChange={(event) =>
+        updater((prev) => ({
+          ...prev,
+          [name]: event.target.value,
+        }))
+      }
+      {...props}
+    />
   );
 }
