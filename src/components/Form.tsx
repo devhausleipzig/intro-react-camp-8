@@ -1,9 +1,4 @@
-import React, {
-  DetailedHTMLProps,
-  Dispatch,
-  SetStateAction,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "./Button";
 
 const initialState = {
